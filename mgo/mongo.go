@@ -33,6 +33,13 @@ func init() {
 	if err != nil {
 		log.Error(err)
 	}
+
+	cred := mongo.Credential{
+		Username: "admin",
+		Password: "admin",
+	}
+	sess.Login(&cred)
+
 	sess.SetMode(mgo.Strong, true)
 	sess.SetSocketTimeout(DEFAULT_MGO_TIMEOUT * time.Second)
 	sess.SetCursorTimeout(0)
