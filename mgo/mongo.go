@@ -34,7 +34,7 @@ func init() {
 		log.Error(err)
 	}
 
-	cred := mongo.Credential{
+	cred := mgo.Credential{
 		Username: "admin",
 		Password: "admin",
 	}
