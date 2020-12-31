@@ -21,7 +21,7 @@ var (
 
 const (
 	DEFAULT_MGO_TIMEOUT = 15
-	DEFAULT_MGO_ADDR    = "mongodb:27017"
+	DEFAULT_MGO_ADDR    = "127.0.0.1:27017"
 )
 
 func init() {
