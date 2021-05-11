@@ -398,10 +398,6 @@ func SetOutput(w io.Writer) {
 	Std.SetOutput(w)
 }
 
-func SetEmail(email string) {
-	Std.SetEmail(email)
-}
-
 func SetObj(obj string) {
 	Std.SetObj(obj)
 }
