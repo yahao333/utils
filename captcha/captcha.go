@@ -22,7 +22,11 @@ func CreateCaptcha() string {
 func DriverDigitFunc()(id, bs string, err error){
 	e := configJsonBody{}
 	e.Id = uuid.New().String()
-	e.CaptchaValue = CreateCaptcha()
+	e.CaptchaType = "string"
+	val := CreateCaptcha()
+	e.CaptchaValue = val
+	e.VerifyValue = val
+	store.Set(e.Id, val)
 
 	return e.Id, e.CaptchaValue, nil
 }
