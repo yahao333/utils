@@ -30,3 +30,7 @@ func DriverDigitFunc()(id, bs string, err error){
 
 	return e.Id, e.CaptchaValue, nil
 }
+
+func Verify(id, val string, clear bool) bool {
+	return store.Verify(id, val, clear)
+}
