@@ -41,13 +41,13 @@ var levelMaps = map[int]string{
 }
 
 type Logger struct {
-	mu     sync.Mutex
-	obj    string      // 打印日志对象
-	out    io.Writer   // 输出
-	in     chan []byte // channel
-	dir    string      // 输出目录
-	flag   int         // 标志
-	mails Emailer    // 告警邮件
+	mu    sync.Mutex
+	obj   string      // 打印日志对象
+	out   io.Writer   // 输出
+	in    chan []byte // channel
+	dir   string      // 输出目录
+	flag  int         // 标志
+	mails Emailer     // 告警邮件
 }
 
 type LogOption struct {
@@ -55,18 +55,18 @@ type LogOption struct {
 	LogDir     string    // 日志输出目录, 为空不输出到文件
 	ChannelLen int       // channel
 	Flag       int       // 标志位
-	Mails     Emailer  // 告警邮件
+	Mails      Emailer   // 告警邮件
 }
 
 func New(option LogOption) *Logger {
 	wd, _ := os.Getwd()
 	index := strings.LastIndex(wd, "/")
 	logger := &Logger{
-		obj:    wd[index+1:],
-		out:    option.Out,
-		in:     make(chan []byte, option.ChannelLen),
-		dir:    option.LogDir,
-		flag:   option.Flag,
+		obj:   wd[index+1:],
+		out:   option.Out,
+		in:    make(chan []byte, option.ChannelLen),
+		dir:   option.LogDir,
+		flag:  option.Flag,
 		mails: option.Mails,
 	}
 	if logger.flag|LAsync != 0 {
@@ -84,7 +84,7 @@ func (l *Logger) receive() {
 			l.mu.Lock()
 			today = time.Now()
 			file, err = os.OpenFile(fmt.Sprintf("%s/%s_%s.log", l.dir,
-				l.obj, today.Format("2020-01-01")),
+				l.obj, today.Format("20060102150405")),
 				os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 			if err != nil {
 				panic(err)
@@ -316,7 +316,6 @@ func (l *Logger) SetLevel(lvl int) {
 	l.flag = (l.flag >> i) | (Lall >> i)
 	l.flag <<= i
 }
-
 
 //----------------------------------- standard wrapper ---------------------------------
 var Std = New(LogOption{Out: os.Stdout, ChannelLen: 1000, Flag: LstdFlags})
