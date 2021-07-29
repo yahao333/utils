@@ -84,7 +84,7 @@ func (l *Logger) receive() {
 			l.mu.Lock()
 			today = time.Now()
 			file, err = os.OpenFile(fmt.Sprintf("%s/%s_%s.log", l.dir,
-				l.obj, today.Format("20060102150405")),
+				l.obj, today.Format("2006-01-02")),
 				os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 			if err != nil {
 				panic(err)
