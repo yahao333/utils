@@ -330,10 +330,12 @@ func Reset(logfile, token, secret string, en_ding bool) {
 			Flag:       Flags,
 			ChannelLen: 1000,
 		}
-		if en_ding && token != "" && secret != "" {
-			robot := NewRobot(token, secret)
-			option.Ding = robot
-		}
+		/*
+			if en_ding && token != "" && secret != "" {
+				robot := NewRobot(token, secret)
+				option.Ding = robot
+			}
+		*/
 
 		Std = New(option)
 	}
