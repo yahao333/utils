@@ -320,6 +320,25 @@ func (l *Logger) SetLevel(lvl int) {
 //----------------------------------- standard wrapper ---------------------------------
 var Std = New(LogOption{Out: os.Stdout, ChannelLen: 1000, Flag: LstdFlags})
 
+// 重新输出到文件
+func Reset(logfile, token, secret string, en_ding bool) {
+	if logfile != "" {
+		Flags := Lwarn | Lerror | Lfatal | Ldate | Ltime | Lshortfile // | Ldaily  | Lasync
+		f, _ := os.OpenFile(logfile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+		option := LogOption{
+			Out:        f,
+			Flag:       Flags,
+			ChannelLen: 1000,
+		}
+		if en_ding && token != "" && secret != "" {
+			robot := NewRobot(token, secret)
+			option.Ding = robot
+		}
+
+		Std = New(option)
+	}
+}
+
 func Printf(format string, v ...interface{}) {
 	Std.Output(Linfo, 2, fmt.Sprintf(format, v...))
 }
