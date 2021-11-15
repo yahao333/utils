@@ -1,6 +1,7 @@
 package logd
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -319,6 +320,26 @@ func (l *Logger) SetLevel(lvl int) {
 
 //----------------------------------- standard wrapper ---------------------------------
 var Std = New(LogOption{Out: os.Stdout, ChannelLen: 1000, Flag: LstdFlags})
+
+// RedirectLogFile 重新定义输出日志文件
+func RedirectLogFile(logfile string, flags int) error {
+	if logfile == "" {
+		logfile = "app.log"
+	}
+
+	f, err := os.OpenFile(logfile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+	if err != nil {
+		return errors.New("Could not open log file")
+	}
+
+	option := LogOption{
+		Out:        f,
+		Flag:       flags,
+		ChannelLen: 1000,
+	}
+	Std = New(option)
+	return nil
+}
 
 // 重新输出到文件
 func Reset(logfile, token, secret string, en_ding bool) {
