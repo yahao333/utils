@@ -226,6 +226,12 @@ func (l *Logger) Debugf(format string, v ...interface{}) {
 	}
 }
 
+func (l *Logger) Debug(v string) {
+	if Ldebug&l.flag != 0 {
+		l.Output(Ldebug, 2, v)
+	}
+}
+
 func (l *Logger) Debug(v ...interface{}) {
 	if Ldebug&l.flag != 0 {
 		l.Output(Ldebug, 2, fmt.Sprintf(smartFormat(v...), v...))
@@ -236,6 +242,11 @@ func (l *Logger) Debug(v ...interface{}) {
 func (l *Logger) Infof(format string, v ...interface{}) {
 	if Linfo&l.flag != 0 {
 		l.Output(Linfo, 2, fmt.Sprintf(format, v...))
+	}
+}
+func (l *Logger) Info(v string) {
+	if Linfo&l.flag != 0 {
+		l.Output(Linfo, 2, v)
 	}
 }
 
@@ -252,6 +263,11 @@ func (l *Logger) Warnf(format string, v ...interface{}) {
 	}
 }
 
+func (l *Logger) Warn(v string) {
+	if Lwarn&l.flag != 0 {
+		l.Output(Lwarn, 2, v)
+	}
+}
 func (l *Logger) Warn(v ...interface{}) {
 	if Lwarn&l.flag != 0 {
 		l.Output(Lwarn, 2, fmt.Sprintf(smartFormat(v...), v...))
@@ -265,6 +281,11 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 	}
 }
 
+func (l *Logger) Error(v string) {
+	if Lerror&l.flag != 0 {
+		l.Output(Lerror, 2, string)
+	}
+}
 func (l *Logger) Error(v ...interface{}) {
 	if Lerror&l.flag != 0 {
 		l.Output(Lerror, 2, fmt.Sprintf(smartFormat(v...), v...)+CallerStack())
@@ -277,6 +298,10 @@ func (l *Logger) Fatalf(format string, v ...interface{}) {
 	os.Exit(1)
 }
 
+func (l *Logger) Fatal(v string) {
+	l.Output(Lfatal, 2, v)
+	os.Exit(1)
+}
 func (l *Logger) Fatal(v ...interface{}) {
 	l.Output(Lfatal, 2, fmt.Sprintf(smartFormat(v...), v...))
 	os.Exit(1)
