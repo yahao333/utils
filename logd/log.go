@@ -290,7 +290,7 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 
 func (l *Logger) Error(v string) {
 	if Lerror&l.flag != 0 {
-		l.Output(Lerror, 2, string)
+		l.Output(Lerror, 2, v)
 	}
 }
 
