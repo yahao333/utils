@@ -374,9 +374,9 @@ func Debugf(format string, v ...interface{}) {
 		Std.Output(Ldebug, 2, fmt.Sprintf(format, v...))
 	}
 }
-func Debug(v ...interface{}) {
+func Debug(v string) {
 	if Ldebug&Std.flag != 0 {
-		Std.Output(Ldebug, 2, fmt.Sprintf(smartFormat(v...), v...))
+		Std.Output(Ldebug, 2, v)
 	}
 }
 
@@ -385,9 +385,9 @@ func Infof(format string, v ...interface{}) {
 		Std.Output(Linfo, 2, fmt.Sprintf(format, v...))
 	}
 }
-func Info(v ...interface{}) {
+func Info(v string) {
 	if Linfo&Std.flag != 0 {
-		Std.Output(Linfo, 2, fmt.Sprintf(smartFormat(v...), v...))
+		Std.Output(Linfo, 2, v)
 	}
 }
 
@@ -397,9 +397,9 @@ func Warnf(format string, v ...interface{}) {
 	}
 }
 
-func Warn(v ...interface{}) {
+func Warn(v string) {
 	if Lwarn&Std.flag != 0 {
-		Std.Output(Lwarn, 2, fmt.Sprintf(smartFormat(v...), v...))
+		Std.Output(Lwarn, 2, v)
 	}
 }
 
@@ -409,9 +409,9 @@ func Errorf(format string, v ...interface{}) {
 	}
 }
 
-func Error(v ...interface{}) {
+func Error(v string) {
 	if Lerror&Std.flag != 0 {
-		Std.Output(Lerror, 2, fmt.Sprintf(smartFormat(v...), v...)+CallerStack())
+		Std.Output(Lerror, 2, v)
 	}
 }
 
@@ -421,8 +421,8 @@ func Fatalf(format string, v ...interface{}) {
 	os.Exit(1)
 }
 
-func Fatal(v ...interface{}) {
-	Std.Output(Lfatal, 2, fmt.Sprintf(smartFormat(v...), v...))
+func Fatal(v string) {
+	Std.Output(Lfatal, 2, v)
 	Std.Output(Lfatal, 2, CallerStack())
 	os.Exit(1)
 }
